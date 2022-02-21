@@ -14,7 +14,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        return Country::all();
+        $countries = Country::all();
+        return response()->json(['status'=>true, 'data'=>$countries], 200);
     }
 
     /**
@@ -29,7 +30,8 @@ class CountryController extends Controller
             'iso'=>'required',
             'name'=>'required'
         ]);
-        return Country::create($request->all());
+        $country= Country::create($request->all());
+        return response()->json(['status'=>true, 'data'=>$country], 200);
     }
 
     /**
@@ -40,7 +42,8 @@ class CountryController extends Controller
      */
     public function show($id)
     {
-        return Country::find($id);
+        $show = Country::find($id);
+        return response()->json(['status'=>true, 'data'=>$show], 200);
     }
 
     /**
@@ -55,7 +58,7 @@ class CountryController extends Controller
         $product= Country::find($id);
         $product->update($request->all());
 
-        return $product;
+        return response()->json(['status'=>true, 'data'=>$product], 200);
     }
 
     /**
@@ -66,7 +69,8 @@ class CountryController extends Controller
      */
     public function destroy($id)
     {
-        return Country::destroy($id);
+        $destroy = Country::destroy($id);
+        return response()->json(['status'=>true, 'action'=>$destroy], 200);
     }
 
     /**
@@ -77,7 +81,8 @@ class CountryController extends Controller
      */
     public function search($name)
     {
-        return Country::where('name', 'like', '%'.$name.'%')->get();
+        $search= Country::where('name', 'like', '%'.$name.'%')->get();
+        return response()->json(['status'=>true, 'data'=>$search], 200);
     }
     
 }
